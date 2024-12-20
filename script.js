@@ -28,12 +28,12 @@ function displayCryptoData(tickers) {
     // Sort cryptos by price (descending order) to pick top 2
     const sortedTickers = tickers.sort((a, b) => parseFloat(b.last) - parseFloat(a.last));
     
-    // Filter favorites from the top 2 cryptos
-    const top2Cryptos = sortedTickers.slice(0, 2);
+    // Filter favorites from the top 5cryptos
+    const top2Cryptos = sortedTickers.slice(0, 5);
     const allCryptos = top2Cryptos.concat(tickers.filter(ticker => favoriteCryptos.includes(ticker.instId)));
 
     allCryptos.forEach(ticker => {
-        const symbol = ticker.instId; // e.g., BTC-USDT
+        const symbol = ticker.instId; // eg btc-usdt
         const price = parseFloat(ticker.last);
         const isFavorite = favoriteCryptos.includes(symbol);
 
@@ -73,20 +73,19 @@ function checkAlerts(tickers) {
         const currentPrice = parseFloat(ticker.last);
         const alertPrice = alertConditions[symbol];
         if (alertPrice && currentPrice >= alertPrice) {
-            alert(`🚨 ${symbol} has reached $${currentPrice.toLocaleString()}!`);
             playBeepSound(); // Play the beep sound when the alert triggers
-            delete alertConditions[symbol]; // Remove alert after triggering
+            delete alertConditions[symbol]; // Re
+            alert(`🚨 ${symbol} has reached $${currentPrice.toLocaleString()}!`);
         }
     });
 }
-
 // Function to play the beep sound
 function playBeepSound() {
     const beepSound = document.getElementById("beep-sound");
     beepSound.play();
 }
 
-// Toggle favorite status for a cryptocurrency
+// Toggle favorite status for crypto
 function toggleFavorite(crypto) {
     if (favoriteCryptos.includes(crypto)) {
         favoriteCryptos = favoriteCryptos.filter(fav => fav !== crypto);
