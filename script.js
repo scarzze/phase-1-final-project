@@ -21,22 +21,21 @@ async function fetchCryptoData() {
     }
 }
 
-// Display only top 2 cryptos and favorites
+// Display only top 5 cryptos and favorites
 function displayCryptoData(tickers) {
     cryptoContainer.innerHTML = ""; // Clear existing content
 
-    // Sort cryptos by price (descending order) to pick top 2
+    // pick top 5
     const sortedTickers = tickers.sort((a, b) => parseFloat(b.last) - parseFloat(a.last));
     
-    // Filter favorites from the top 5cryptos
-    const top2Cryptos = sortedTickers.slice(0, 5);
-    const allCryptos = top2Cryptos.concat(tickers.filter(ticker => favoriteCryptos.includes(ticker.instId)));
+    // Filter favorites from the top twenty cryptos
+    const topCryptos = sortedTickers.slice(0,20);
+    const allCryptos = topCryptos.concat(tickers.filter(ticker => favoriteCryptos.includes(ticker.instId)));
 
     allCryptos.forEach(ticker => {
         const symbol = ticker.instId; // eg btc-usdt
         const price = parseFloat(ticker.last);
         const isFavorite = favoriteCryptos.includes(symbol);
-
         const card = document.createElement("div");
         card.className = "crypto-card";
         card.innerHTML = `
@@ -74,8 +73,8 @@ function checkAlerts(tickers) {
         const alertPrice = alertConditions[symbol];
         if (alertPrice && currentPrice >= alertPrice) {
             playBeepSound(); // Play the beep sound when the alert triggers
-            delete alertConditions[symbol]; // Re
             alert(`🚨 ${symbol} has reached $${currentPrice.toLocaleString()}!`);
+            delete alertConditions[symbol]; // re        
         }
     });
 }
@@ -108,8 +107,8 @@ searchInput.addEventListener("input", () => {
     });
 });
 
-// Periodically refresh data
+//  refresh data
 setInterval(fetchCryptoData, 30000);
 
-// Initial fetch
+// fetch data
 fetchCryptoData();

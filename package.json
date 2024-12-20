@@ -7,7 +7,7 @@
     "start": "lite-server"
   },
   "dependencies": {
-    "some-package": "^1.0.0"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "lite-server": "^2.6.1"
