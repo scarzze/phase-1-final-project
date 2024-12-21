@@ -11,5 +11,16 @@
   },
   "devDependencies": {
     "lite-server": "^2.6.1"
+  },
+  "browserSync": {
+    "server": {
+      "baseDir": "./", 
+      "index": "index.html"
+    },
+    "files": [
+      "**/*.html",
+      "**/*.css",
+      "**/*.js"
+    ]
   }
 }
