@@ -1,4 +1,4 @@
-
+# phase-1-final-projet
 ## Crypto Price Tracker
 ## Project Overview
 1. Crypto Price Tracker is a dynamic web application that allows users to
@@ -82,5 +82,4 @@ Sound: gajah-220044.mp3
 
 ## License
 This project is licensed under the MIT License.
-
 
