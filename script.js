@@ -21,16 +21,23 @@ async function fetchCryptoData() {
     }
 }
 
-// Display only top 20 cryptos and the rest be searchable
+// Display only favorites, top 20 cryptos, and make the rest searchable
 function displayCryptoData(tickers) {
     cryptoContainer.innerHTML = ""; // Clear existing content
-    // Sort the tickers by price, and pick top 20
-    const sortedTickers = tickers.sort((a, b) => parseFloat(b.last) - parseFloat(a.last));
-    const topCryptos = sortedTickers.slice(0, 20); // Display top 20
-    const remainingCryptos = sortedTickers.slice(20); // Rest of the cryptos (for search)
 
-    // Combine top 20 and remaining cryptos
-    const allCryptos = topCryptos.concat(remainingCryptos);
+    // Sort the tickers by price
+    const sortedTickers = tickers.sort((a, b) => parseFloat(b.last) - parseFloat(a.last));
+
+    // Separate favorites
+    const favoriteTickerData = sortedTickers.filter(ticker => favoriteCryptos.includes(ticker.instId));
+    const nonFavoriteTickers = sortedTickers.filter(ticker => !favoriteCryptos.includes(ticker.instId));
+
+    // Top 20 non-favorites
+    const topCryptos = nonFavoriteTickers.slice(0, 20);
+    const remainingCryptos = nonFavoriteTickers.slice(20);
+
+    // Combine favorites, top 20, and remaining cryptos
+    const allCryptos = favoriteTickerData.concat(topCryptos, remainingCryptos);
 
     allCryptos.forEach(ticker => {
         const symbol = ticker.instId; // eg btc-usdt
